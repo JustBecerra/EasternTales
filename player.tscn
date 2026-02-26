@@ -3,19 +3,36 @@
 [ext_resource type="Texture2D" uid="uid://dm6aackbhbkdu" path="res://art/AUH_NPC_Default.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cjhqkmmteo4fw" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://ck3bwv25nqqeq" path="res://art/soldier_resized_1024x1536_padded.png" id="3_hqtel"]
+[ext_resource type="Texture2D" path="res://art/running_animation_2_resized.png" id="4_dq6m4"]
+[ext_resource type="Texture2D" path="res://art/running_animation_inbetween_1.png" id="5_lrevi"]
+[ext_resource type="Texture2D" path="res://art/running_animation_inbetween_2.png" id="6_4kbpr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_4flbx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_hqtel")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lrevi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_dq6m4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4kbpr")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]
@@ -29,7 +46,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=654676635]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_onrkg")
-animation = &"walk"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1591326867]
 shape = SubResource("CapsuleShape2D_i3pqv")

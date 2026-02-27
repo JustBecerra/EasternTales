@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" path="res://art/running_animation_2_resized.png" id="4_dq6m4"]
 [ext_resource type="Texture2D" path="res://art/running_animation_inbetween_1.png" id="5_lrevi"]
 [ext_resource type="Texture2D" path="res://art/running_animation_inbetween_2.png" id="6_4kbpr"]
+[ext_resource type="Texture2D" path="res://art/running_animation_left_forward.png" id="7_6w6rw"]
+[ext_resource type="Texture2D" path="res://art/running_animation_left_inbetween.png" id="8_uwx8s"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
 animations = [{
@@ -29,10 +31,16 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("6_4kbpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6w6rw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_uwx8s")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 8.0
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]

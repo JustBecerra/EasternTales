@@ -3,6 +3,8 @@
 /android/
 .nomedia
 
+/art/
+
 # Godot-specific ignores
 .import/
 export.cfg

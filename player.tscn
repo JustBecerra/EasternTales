@@ -48,8 +48,7 @@ animations = [{
 radius = 55.0
 height = 220.0
 
-[node name="Player" type="Area2D" unique_id=344514043]
-position = Vector2(1, -1)
+[node name="Player" type="CharacterBody2D" unique_id=1332802959]
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 

@@ -3,6 +3,7 @@
 /android/
 .nomedia
 
+/addons/
 /art/
 
 # Godot-specific ignores

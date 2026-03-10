@@ -55,7 +55,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=654676635]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_onrkg")
-animation = &"walk"
+animation = &"duck"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1591326867]
 shape = SubResource("CapsuleShape2D_i3pqv")

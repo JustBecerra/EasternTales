@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed = 200 # How fast the player will move (pixels/sec).
+@export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 
 # Called when the node enters the scene tree for the first time.
@@ -27,34 +27,55 @@ var is_vaulting = false
 func vault(collider):
 	if is_vaulting:
 		return
-
+	
+	if collider == self:
+		return
+	
+	var vault_node = collider.get_node_or_null("VaultableObject")
+	if vault_node == null:
+		print("Wrong collider: ", collider.name)
+		return
+	
 	is_vaulting = true
 	$AnimatedSprite2D.play("vault")
-
 	var object_width = collider.get_node("VaultableObject").shape.size.x
 	var direction = -1 if $AnimatedSprite2D.flip_h else 1
-
+	
 	var start_pos = position
 	var peak_height = 20.0
-	var end_x = position.x + direction * (object_width + 20)
-
+	
 	# Keep collision off only during the vault
 	$CollisionShape2D.disabled = true
-
+	
 	var tween = create_tween()
-
+	
 	# First half: move forward and up
-	tween.tween_property(self, "position", Vector2(start_pos.x + direction * ((object_width + 20) / 2.0), start_pos.y - peak_height),0.18)
-
+	tween.tween_property(self, "position", Vector2(start_pos.x + direction * ((object_width + 1) / 2.0), start_pos.y - peak_height), 0.18)
+	
 	# Second half: move forward and down
 	tween.tween_property(self, "position", Vector2(start_pos.x + direction * (object_width + 100), start_pos.y), 0.18)
-
+	
 	await tween.finished
 	await $AnimatedSprite2D.animation_finished
-
+	
 	$CollisionShape2D.disabled = false
 	is_vaulting = false
 
+var nearby_vaultable = null
+
+func _on_detector_body_entered(body):
+	if body == self:
+		return
+	if not body.has_node("VaultableObject"):
+		return
+
+	nearby_vaultable = body
+
+func _on_detector_body_exited(body):
+	if nearby_vaultable == body:
+		nearby_vaultable = null
+
+var detector_offset_x = 70.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if is_vaulting:
@@ -75,11 +96,15 @@ func _process(delta: float) -> void:
 		duck()
 	else:
 		idle()
-
+		
 	if velocity.x != 0:
 		$AnimatedSprite2D.flip_h = velocity.x < 0
+		if $AnimatedSprite2D.flip_h:
+			$Detector.position.x = -$CollisionShape2D.shape.radius - detector_offset_x
+		else:
+			$Detector.position.x = $CollisionShape2D.shape.radius + detector_offset_x
 
-	var collision = move_and_collide(velocity * delta)
-	if collision and Input.is_action_just_released("vault"):
-		var collider = collision.get_collider()
-		vault(collider)
+	move_and_collide(velocity * delta)
+	if nearby_vaultable and Input.is_action_just_released("vault"):
+		print(nearby_vaultable)
+		vault(nearby_vaultable)

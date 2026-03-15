@@ -30,16 +30,10 @@ func vault(collider):
 	
 	if collider == self:
 		return
-	
-	var vault_node = collider.get_node_or_null("VaultableObject")
-	if vault_node == null:
-		print("Wrong collider: ", collider.name)
-		return
-	
+	var direction = -1 if $AnimatedSprite2D.flip_h else 1
 	is_vaulting = true
 	$AnimatedSprite2D.play("vault")
 	var object_width = collider.get_node("VaultableObject").shape.size.x
-	var direction = -1 if $AnimatedSprite2D.flip_h else 1
 	
 	var start_pos = position
 	var peak_height = 20.0
@@ -106,5 +100,4 @@ func _process(delta: float) -> void:
 
 	move_and_collide(velocity * delta)
 	if nearby_vaultable and Input.is_action_just_released("vault"):
-		print(nearby_vaultable)
 		vault(nearby_vaultable)

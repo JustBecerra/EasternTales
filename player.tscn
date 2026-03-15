@@ -5,8 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://c684viiuxdyjr" path="res://art/crouched_animation.png" id="2_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://ck3bwv25nqqeq" path="res://art/soldier_resized_1024x1536_padded.png" id="3_hqtel"]
 [ext_resource type="Texture2D" uid="uid://46ynn83l5fv8" path="res://art/running_animation_2_resized.png" id="4_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://djfona272ud6c" path="res://art/vault/Initial_vault.png" id="4_n7ghd"]
 [ext_resource type="Texture2D" uid="uid://dljxh37j2dwq8" path="res://art/resized_1024x1536_aspect_preserved.png" id="5_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://kulxiwec5lgv" path="res://art/vault/mid_air_vault.png" id="5_nvl01"]
 [ext_resource type="Texture2D" uid="uid://d1p2k8dbgm1gt" path="res://art/running_animation_left_leg_forward_1024x1536.png.png" id="6_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://dqhc6wd0w3px" path="res://art/vault/landing_vault.png" id="6_ivps1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
 animations = [{
@@ -25,6 +28,20 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_n7ghd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nvl01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ivps1")
+}],
+"loop": false,
+"name": &"vault",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -48,15 +65,29 @@ animations = [{
 radius = 55.0
 height = 220.0
 
-[node name="Player" type="Area2D" unique_id=344514043]
-position = Vector2(1, -1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7ghd"]
+size = Vector2(30, 20)
+
+[node name="Player" type="CharacterBody2D" unique_id=1332802959]
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=654676635]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_onrkg")
-animation = &"duck"
+animation = &"vault"
+frame = 2
+frame_progress = 0.40401843
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1591326867]
 shape = SubResource("CapsuleShape2D_i3pqv")
+
+[node name="Detector" type="Area2D" parent="." unique_id=347185173]
+disable_mode = 2
+
+[node name="DetectorShape" type="CollisionShape2D" parent="Detector" unique_id=816623476]
+position = Vector2(80, 0)
+shape = SubResource("RectangleShape2D_n7ghd")
+
+[connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
+[connection signal="body_exited" from="Detector" to="." method="_on_detector_body_exited"]

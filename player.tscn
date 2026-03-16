@@ -66,7 +66,7 @@ radius = 55.0
 height = 220.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7ghd"]
-size = Vector2(42, 79)
+size = Vector2(196, 79)
 
 [node name="Player" type="CharacterBody2D" unique_id=1332802959]
 script = ExtResource("1_onrkg")
@@ -83,7 +83,7 @@ shape = SubResource("CapsuleShape2D_i3pqv")
 [node name="VaultDetector" type="Area2D" parent="." unique_id=2081959007]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VaultDetector" unique_id=500705767]
-position = Vector2(81, 40.5)
+position = Vector2(4, 40.5)
 shape = SubResource("RectangleShape2D_n7ghd")
 
 [connection signal="body_entered" from="VaultDetector" to="." method="_on_vault_detector_body_entered"]

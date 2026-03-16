@@ -30,12 +30,13 @@ func vault(collider):
 	
 	if collider == self:
 		return
-	print("vaulting activated")
+	
 	if not collider.has_node("LeftMarker") or not collider.has_node("RightMarker"):
 		push_warning("Vault object is missing LeftMarker or RightMarker")
 		return
 	
 	is_vaulting = true
+	$AnimatedSprite2D.z_index = 2
 	$AnimatedSprite2D.play("vault")
 	$CollisionShape2D.disabled = true
 	
@@ -50,7 +51,7 @@ func vault(collider):
 	else:
 		target_marker = collider.get_node("LeftMarker")
 	
-	var target_pos = target_marker.global_position
+	var target_pos = Vector2(target_marker.global_position.x, start_pos.y)
 	var mid_pos = Vector2(
 		(start_pos.x + target_pos.x) / 2.0,
 		min(start_pos.y, target_pos.y) - peak_height
@@ -61,6 +62,10 @@ func vault(collider):
 	tween.tween_property(self, "global_position", target_pos, 0.18)
 	
 	await tween.finished
+	if target_marker.name == "RightMarker":
+		$AnimatedSprite2D.z_index = 2
+	else:
+		$AnimatedSprite2D.z_index = 0
 	
 	$CollisionShape2D.disabled = false
 	is_vaulting = false
@@ -70,12 +75,10 @@ var current_vaultable = null
 func _on_vault_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("vaultable"):
 		current_vaultable = body
-		print("entered vaultable:", body.name)
 
 func _on_vault_detector_body_exited(body: Node2D) -> void:
 	if body == current_vaultable:
 		current_vaultable = null
-		print("left vaultable:", body.name)
 
 var detector_offset_x = 70.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.

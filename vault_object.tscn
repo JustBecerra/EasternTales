@@ -9,6 +9,7 @@ size = Vector2(184, 131)
 size = Vector2(439, 87)
 
 [node name="VaultObject" type="StaticBody2D" unique_id=1953896188 groups=["vaultable"]]
+z_index = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=399825634]
 texture = ExtResource("1_bqwd3")
@@ -27,4 +28,5 @@ shape = SubResource("RectangleShape2D_bqwd3")
 position = Vector2(-100, 50)
 
 [node name="RightMarker" type="Marker2D" parent="." unique_id=1596260874]
+z_index = 1
 position = Vector2(200, 50)

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://byjen00wgyslv" path="res://player.tscn" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://cl2aj3prngdf0" path="res://main.gd" id="1_r0du0"]
 [ext_resource type="Texture2D" uid="uid://csusn58sgn443" path="res://art/backgrounds/trenches_background_2.png" id="3_r0du0"]
-[ext_resource type="PackedScene" uid="uid://clhlk760i23dx" path="res://art/objects/vault_object.tscn" id="4_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://xtdjsdkvh2tl" path="res://vault_object.tscn" id="4_cm0pq"]
 
 [node name="Main" type="Node2D" unique_id=1077016525]
 script = ExtResource("1_r0du0")
@@ -23,5 +23,5 @@ position = Vector2(685, 386)
 scale = Vector2(0.8880208, 0.7441406)
 texture = ExtResource("3_r0du0")
 
-[node name="VaultObject" parent="." unique_id=1586768112 instance=ExtResource("4_cm0pq")]
-position = Vector2(209, 222)
+[node name="VaultObject" parent="." unique_id=1953896188 instance=ExtResource("4_cm0pq")]
+position = Vector2(907, 596)
